@@ -1,4 +1,3 @@
-
 export default function SubscribeButton() {
 
   return  (
@@ -10,5 +9,4 @@ export default function SubscribeButton() {
                 Subscribe now
         </button>
   );
-    
 }

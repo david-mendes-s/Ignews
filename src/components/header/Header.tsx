@@ -1,12 +1,16 @@
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import SignInButton from "../SignInButton";
 import Logo from "/public/logo.svg";
 
-export default function Header() {
-  const [active, setActive] = useState('Home');
 
+
+export default function Header() {
+  const router = useRouter();
+  
   return (
     
       <header className="w-full h-20 bg-gray-900
@@ -23,11 +27,10 @@ export default function Header() {
               <Image src={Logo} alt="logo-devboost"
                     className=" mr-20" />
 
-                <Link onClick={()=> active !== 'Home' ? 
-                   setActive('Home') : setActive('')} 
+                <Link /* onClick={()=> setActive(router.pathname) } */ 
                 href="/" 
                 className={
-                  active === 'Home' ? 
+                  router.pathname === '/' ? 
                   `
                   h-20 leading-[5rem] 
                   inline-block px-2 hover:text-white duration-200 relative 
@@ -39,11 +42,10 @@ export default function Header() {
                   inline-block px-2 hover:text-white duration-200 relative `}>
                   Home
                 </Link>
-                <Link onClick={()=> active !== 'Post' ? 
-                                    setActive('Post')  : setActive('')} 
+                <Link /* onClick={()=> setActive(router.pathname)  } */ 
                 href="/Posts" 
                 className={
-                  active === 'Post' ? 
+                  router.pathname === '/Posts' ? 
                   `
                   h-20 leading-[5rem] 
                   inline-block px-2 hover:text-white duration-200 relative 

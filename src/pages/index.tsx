@@ -1,12 +1,21 @@
+import { GetServerSideProps } from "next";
 import Header from "@/components/header/Header";
 import SubscribeButton from "@/components/SubscribeButton";
 import  Head  from "next/head";
 import Image from "next/image";
 
 import Avatar from '/public/avatar.svg';
+import { stripe } from "@/service/stripe";
 
+interface IProps {
+  product: {
+    amount: number,
+  }
+}
 
-export default function Home() {
+export default function Home({product}: IProps) {
+  console.log(product);
+ 
   return (
     <>
       <Head>
@@ -22,7 +31,13 @@ export default function Home() {
             News about <br/>the <span className="text-cyan-500">React</span> world.</h1>
           <p className="text-2xl leading-9 mt-6">
             Get access to all the publications <br/>
-            <span className="text-cyan-500 font-bold">for $9.90</span>
+            <span className="text-cyan-500 font-bold">
+              {new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              }).format(product.amount/100) } month
+            </span>
+            
           </p>
 
           <SubscribeButton />
@@ -33,4 +48,21 @@ export default function Home() {
      </main>
     </>
   )
+}
+export const getServerSideProps: GetServerSideProps = async () => {
+
+  const price = await stripe.prices.retrieve('price_1MVhEpAqBf5UG3fHzrHocmRr', {
+    expand: ['product']
+  })
+
+  const product = {
+    priceId: price.id,
+    amount: price.unit_amount
+  }
+  
+  return {
+    props: {
+      product
+    }
+  }
 }
