@@ -1,4 +1,4 @@
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import Image from "next/image";
 import  Head  from "next/head";
 
@@ -16,8 +16,7 @@ interface IProps {
 }
 
 export default function Home({product}: IProps) {
-  console.log(product);
- 
+  
   return (
     <>
       <Head>
@@ -51,7 +50,7 @@ export default function Home({product}: IProps) {
     </>
   )
 }
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 
   const price = await stripe.prices.retrieve('price_1MVhEpAqBf5UG3fHzrHocmRr', {
     expand: ['product']
@@ -65,6 +64,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       product
-    }
+    },
+    revalidate: 60 * 60 * 24, //24horas
   }
 }
