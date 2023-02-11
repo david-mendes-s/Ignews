@@ -1,15 +1,17 @@
 import { GetServerSideProps } from "next";
+import Image from "next/image";
+import  Head  from "next/head";
+
+import { stripe } from "@/service/stripe";
 import Header from "@/components/header/Header";
 import SubscribeButton from "@/components/SubscribeButton";
-import  Head  from "next/head";
-import Image from "next/image";
 
 import Avatar from '/public/avatar.svg';
-import { stripe } from "@/service/stripe";
 
 interface IProps {
   product: {
     amount: number,
+    priceId: string
   }
 }
 
@@ -40,7 +42,7 @@ export default function Home({product}: IProps) {
             
           </p>
 
-          <SubscribeButton />
+          <SubscribeButton priceId={product.priceId}/>
         </section>
         <Image src={Avatar} alt="avatar" />
 
