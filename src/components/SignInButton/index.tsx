@@ -6,8 +6,6 @@ export default function SignInButton() {
 
   const {data: session} = useSession();
 
-  console.log(session?.user);
-  
   return session ? (
     <button className='flex items-center justify-between h-12 px-6 bg-gray-700
                        rounded-full hover:brightness-90 hover:duration-200 text-white'
