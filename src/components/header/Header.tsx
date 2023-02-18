@@ -45,7 +45,7 @@ export default function Header() {
                 <Link /* onClick={()=> setActive(router.pathname)  } */ 
                 href="/Posts" 
                 className={
-                  router.pathname === '/Posts' ? 
+                  router.pathname === '/posts' ? 
                   `
                   h-20 leading-[5rem] 
                   inline-block px-2 hover:text-white duration-200 relative 
